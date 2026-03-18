@@ -309,45 +309,6 @@ footer a:hover {
     scrollbar-width: none; /* Firefox */
 }
 
-.image-carousel-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    border: 0;
-    width: 44px;
-    height: 44px;
-    border-radius: 999px;
-    display: grid;
-    place-items: center;
-    background: rgba(0, 0, 0, 0.45);
-    color: white;
-    font-size: 22px;
-    line-height: 1;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 160ms ease, background 160ms ease;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-}
-
-.image-carousel-arrow:hover {
-    background: rgba(0, 0, 0, 0.6);
-}
-
-.image-carousel-arrow-left {
-    left: 12px;
-}
-
-.image-carousel-arrow-right {
-    right: 12px;
-}
-
-.image-carousel-container.showing-arrows .image-carousel-arrow {
-    opacity: 1;
-    pointer-events: auto;
-}
-
 .image-carousel-container::-webkit-scrollbar {
     height: 0;
 }
@@ -392,12 +353,7 @@ footer a:hover {
     }
 
     .carousel-image {
-        height: 280px;
+        height: 400px;
     }
 
-    /* On mobile, show arrows initially (JS will hide after interaction) */
-    .image-carousel-container.showing-arrows .image-carousel-arrow {
-        opacity: 1;
-        pointer-events: auto;
-    }
 }

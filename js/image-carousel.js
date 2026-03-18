@@ -13,22 +13,19 @@ function initImageCarousel() {
     const pointerFine = typeof window !== 'undefined' && window.matchMedia
         ? window.matchMedia('(pointer: fine)').matches
         : false;
-    const pointerCoarse = typeof window !== 'undefined' && window.matchMedia
-        ? window.matchMedia('(pointer: coarse)').matches
-        : false;
     const hoverHover = typeof window !== 'undefined' && window.matchMedia
         ? window.matchMedia('(hover: hover)').matches
         : false;
 
     // List of images from the images folder
     const images = [
+        'a1.jpg',
         'b1.jpg',
         'd1.jpg',
         'f1.jpg',
         'mt2.gif',
         'l1.jpg',
         'mt1.jpg',
-        'a1.jpg',
         'p1.jpg',
         'dc1.jpg',
         'xm1.jpg',
@@ -108,50 +105,6 @@ function initImageCarousel() {
     carouselContainer.addEventListener('pointerup', endDrag);
     carouselContainer.addEventListener('pointercancel', endDrag);
     carouselContainer.addEventListener('pointerleave', endDrag);
-
-    // Mobile arrow UI (visible hint that horizontal scrolling exists).
-    const leftBtn = carouselContainer.querySelector('.image-carousel-arrow-left');
-    const rightBtn = carouselContainer.querySelector('.image-carousel-arrow-right');
-
-    const hideArrows = () => carouselContainer.classList.remove('showing-arrows');
-    const showArrows = () => carouselContainer.classList.add('showing-arrows');
-
-    if (!shouldAutoScroll && pointerCoarse && leftBtn && rightBtn) {
-        showArrows();
-
-        // Hide once the user scrolls/taps the carousel for the first time.
-        const onFirstInteraction = () => {
-            hideArrows();
-            carouselContainer.removeEventListener('scroll', onFirstInteraction);
-            carouselContainer.removeEventListener('pointerdown', onFirstInteraction);
-        };
-
-        carouselContainer.addEventListener('scroll', onFirstInteraction, { passive: true });
-        carouselContainer.addEventListener('pointerdown', onFirstInteraction, { passive: true });
-
-        const scrollByAmount = Math.max(200, carouselContainer.clientWidth * 0.85);
-
-        leftBtn.addEventListener('click', () => {
-            try {
-                carouselContainer.scrollBy({ left: -scrollByAmount, behavior: 'smooth' });
-            } catch {
-                carouselContainer.scrollLeft -= scrollByAmount;
-            }
-            hideArrows();
-        });
-
-        rightBtn.addEventListener('click', () => {
-            try {
-                carouselContainer.scrollBy({ left: scrollByAmount, behavior: 'smooth' });
-            } catch {
-                carouselContainer.scrollLeft += scrollByAmount;
-            }
-            hideArrows();
-        });
-    } else {
-        // Desktop: arrows stay hidden.
-        hideArrows();
-    }
 
     // Desktop auto-scroll: uses scrollLeft (no transforms) to avoid iOS rendering issues.
     if (!shouldAutoScroll) return;
