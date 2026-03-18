@@ -297,20 +297,67 @@ footer a:hover {
 /* Image Carousel */
 .image-carousel-container {
     width: 100%;
-    overflow: hidden;
+    overflow-x: auto;
+    overflow-y: hidden;
     position: relative;
     /* Match surrounding section background to avoid visible gap lines */
     background-color: var(--d1-color);
+    /* Enable natural iOS horizontal panning */
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+    /* Hide scrollbar while keeping scroll functionality */
+    scrollbar-width: none; /* Firefox */
+}
+
+.image-carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 999px;
+    display: grid;
+    place-items: center;
+    background: rgba(0, 0, 0, 0.45);
+    color: white;
+    font-size: 22px;
+    line-height: 1;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease, background 160ms ease;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.image-carousel-arrow:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.image-carousel-arrow-left {
+    left: 12px;
+}
+
+.image-carousel-arrow-right {
+    right: 12px;
+}
+
+.image-carousel-container.showing-arrows .image-carousel-arrow {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.image-carousel-container::-webkit-scrollbar {
+    height: 0;
 }
 
 .image-carousel-track {
     display: flex;
     gap: 0;
-    width: fit-content;
-    /* Improve compatibility with iOS Safari during transforms */
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    transform: translate3d(0, 0, 0);
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    width: max-content;
 }
 
 .carousel-image {
@@ -319,14 +366,16 @@ footer a:hover {
     object-fit: cover;
     flex-shrink: 0;
     display: block;
+    -webkit-user-drag: none;
 }
 
-@keyframes scroll {
-    0% {
-        transform: translate3d(0, 0, 0);
-    }
-    100% {
-        transform: translate3d(-50%, 0, 0);
+.image-carousel-container.dragging {
+    cursor: grabbing;
+}
+
+@media (pointer: fine) {
+    .image-carousel-container {
+        cursor: grab;
     }
 }
 
@@ -342,4 +391,13 @@ footer a:hover {
         margin-top: 5rem;
     }
 
+    .carousel-image {
+        height: 280px;
+    }
+
+    /* On mobile, show arrows initially (JS will hide after interaction) */
+    .image-carousel-container.showing-arrows .image-carousel-arrow {
+        opacity: 1;
+        pointer-events: auto;
+    }
 }
