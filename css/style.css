@@ -348,6 +348,10 @@ footer a:hover {
         height: auto;
     }
 
+    #hero h1 {
+        font-size: 2rem;
+    }
+
     #spacer .container {
         margin-top: 5rem;
     }
