@@ -361,3 +361,11 @@ footer a:hover {
     }
 
 }
+
+@media (max-height: 696px) {
+
+    #hero img {
+        width: auto;
+        height: 36rem;
+    }
+}
